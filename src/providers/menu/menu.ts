@@ -46,9 +46,10 @@ export class Menu {
     constructor(public storage: Storage) { 
         this.storage.get('_token').then((value) => {
             if (value) {
-              this.pages[0] = { title: 'Ads', component: 'CardsPage' };
-              this.pages[1] = { title: 'Logout', component: 'WelcomePage' };
-              this.rootPage = 'CardsPage';
+                this.pages[0] = { title: 'Matches', component: 'CardsPage' };
+                this.pages[1] = { title: 'Logout', component: 'WelcomePage' };
+                this.pages[2] = { title: 'Master', component: 'ListMasterPage' };
+                this.rootPage = 'CardsPage';
             } else {
               this.rootPage = FirstRunPage;
             }
@@ -62,7 +63,8 @@ export class Menu {
     }
 
     login() {
-        this.pages[0] = { title: 'Ads', component: 'CardsPage' };
+        this.pages[0] = { title: 'Matches', component: 'CardsPage' };
         this.pages[1] = { title: 'Logout', component: 'WelcomePage' };
+        this.pages[2] = { title: 'Master', component: 'ListMasterPage' };
     }
 }

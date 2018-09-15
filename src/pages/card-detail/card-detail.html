@@ -1,0 +1,29 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title *ngIf="hasData">{{ item.title }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content *ngIf="hasData">
+  <!-- <div class="card-profile" text-center #profilePic [style.background-image]="'url(' + item.profilePic + ')'">
+  </div> -->
+  <img src="../../assets/imgs/pubg.jpg">
+  <div class="card-detail" padding>
+    <h2>{{item.title}}</h2>
+    <p>{{item.description}}</p>
+    <ul>
+      <li *ngFor="let rule of item.rules">{{rule}}</li>
+    </ul>
+    <p>Rewards will be given as PayTM Cash.</p>
+    <p>Here 1 Game Point = Rs. 1</p>
+    <p>You can use Game Points for participating in other matches or redeem them as PayTM cash.</p>
+    <p>Minimmum redeem points: 100</p>
+    <p><strong>Note: Please Provide valid PayTM number to get rewards.</strong></p>
+    <button ion-button float-right (click)="apply()">
+      Participate
+    </button>
+  </div>
+</ion-content>

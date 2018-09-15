@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, LoadingController, ModalController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+
+import { Item } from '../../models/item';
+import { Items } from '../../providers';
 
 @IonicPage()
 @Component({
@@ -8,39 +11,27 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'cards.html'
 })
 export class CardsPage {
-  cardItems: any[];
+  cardItems: any;
+  isDataAvailable: boolean = false;
+  constructor(public navCtrl: NavController, public storage: Storage, public loadingCtrl: LoadingController,
+    public modalCtrl: ModalController, public items: Items) {
+  }
 
-  constructor(public navCtrl: NavController, public storage: Storage) {
-    this.cardItems = [
-      {
-        user: {
-          avatar: 'assets/img/marty-avatar.png',
-          name: 'Marty McFly'
-        },
-        date: 'November 5, 1955',
-        image: 'assets/img/advance-card-bttf.png',
-        content: 'Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.',
-      },
-      {
-        user: {
-          avatar: 'assets/img/sarah-avatar.png.jpeg',
-          name: 'Sarah Connor'
-        },
-        date: 'May 12, 1984',
-        image: 'assets/img/advance-card-tmntr.jpg',
-        content: 'I face the unknown future, with a sense of hope. Because if a machine, a Terminator, can learn the value of human life, maybe we can too.'
-      },
-      {
-        user: {
-          avatar: 'assets/img/ian-avatar.png',
-          name: 'Dr. Ian Malcolm'
-        },
-        date: 'June 28, 1990',
-        image: 'assets/img/advance-card-jp.jpg',
-        content: 'Your scientists were so preoccupied with whether or not they could, that they didn\'t stop to think if they should.'
-      }
-    ];
-
+  ngOnInit() {
+    this.items.query().subscribe((resp) => {
+      this.isDataAvailable = true;
+      this.cardItems = resp;
+    }, (err) => {
+      console.log(err);
+    });
+  }
+  
+  host() {
+    let loading = this.loadingCtrl.create({
+      content: 'This Feature is comming soon... Contact 8421353397 to host your own Tournament.',
+      duration: 20000
+    });
+    loading.present();
   }
 
   ionViewCanEnter(): any {
@@ -56,4 +47,34 @@ export class CardsPage {
       });
     });
    }
+
+   /**
+   * Prompt the user to add a new item. This shows our ItemCreatePage in a
+   * modal and then adds the new item to our data source if the user created one.
+   */
+  addItem() {
+    let addModal = this.modalCtrl.create('ItemCreatePage');
+    addModal.onDidDismiss(item => {
+      if (item) {
+        this.items.add(item);
+      }
+    })
+    addModal.present();
+  }
+
+  /**
+   * Delete an item from the list of items.
+   */
+  deleteItem(item) {
+    this.items.delete(item);
+  }
+
+  /**
+   * Navigate to the detail page for this item.
+   */
+  openItem(item: Item) {
+    this.navCtrl.push('CardDetailPage', {
+      item: item
+    });
+  }
 }

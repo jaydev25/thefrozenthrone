@@ -1,36 +1,44 @@
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar primary>
     <button ion-button menuToggle left>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Ads</ion-title>
+    <ion-title float-left class="page-title">Matches</ion-title>
+    <button ion-button float-right (click)="addItem()">
+      Host
+    </button>
   </ion-navbar>
 
 </ion-header>
 
-
+<ion-content *ngIf="!isDataAvailable">
+  <ion-card-content>
+    <h3 primary float-left>No Matches Available</h3>
+  </ion-card-content>
+</ion-content>
 <ion-content>
-  <ion-grid>
+  <ion-grid ng-if="isDataAvailable">
     <ion-row>
       <ion-col *ngFor="let item of cardItems" col-12 col-xl-4 col-lg-6 col-md-8>
-        <ion-card>
-
+        <ion-card (click)="openItem(item)">
           <ion-item>
             <ion-avatar item-start>
-              <img [src]="item.user.avatar">
+              <!-- <img [src]="item.user.avatar"> -->
+              <img src="../../assets/icon/m416.png">
             </ion-avatar>
-            <h2>{{item.user.name}}</h2>
-            <p>{{item.date}}</p>
+            <h2>{{item.title}}</h2>
+            <p>{{item.createdAt}}</p>
           </ion-item>
 
-          <img [src]="item.image">
+          <!-- <img [src]="item.image"> -->
+          <img src="../../assets/imgs/pubg.jpg">
 
           <ion-card-content>
-            <p>{{item.content}}</p>
+            <p style="color: #f53d3d">{{item.description}}</p>
           </ion-card-content>
 
-          <ion-row>
+          <!-- <ion-row>
             <ion-col>
               <button ion-button color="primary" clear small icon-start>
                   <ion-icon name='thumbs-up'></ion-icon>
@@ -48,7 +56,7 @@
                 11h ago
               </ion-note>
             </ion-col>
-          </ion-row>
+          </ion-row> -->
         </ion-card>
       </ion-col>
     </ion-row>
