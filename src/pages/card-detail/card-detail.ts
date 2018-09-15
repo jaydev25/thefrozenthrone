@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
-import { Items } from '../../providers';
+import { Items, User } from '../../providers';
 declare var Instamojo;
 
 @IonicPage()
@@ -14,7 +14,8 @@ export class CardDetailPage {
   item: any;
   hasData: boolean = false;
 
-  constructor(public navCtrl: NavController, navParams: NavParams, items: Items, public storage: Storage) {
+  constructor(public navCtrl: NavController, navParams: NavParams, items: Items, public storage: Storage, public user: User,
+    public alertCtrl: AlertController) {
     this.item = navParams.get('item');
     if (this.item) {
       this.hasData = true;
@@ -35,21 +36,50 @@ export class CardDetailPage {
     });
   }
 
-  apply() {
+  apply(match) {
+    console.log('>>>>>>>>>>>>>>>>>>>>');
+    console.log(match.entryFee);
+    window.open("http://google.com",'_system', 'location=no');
+    
     Instamojo.configure({
       handlers: {
         onOpen: function() {},
-        onClose: function() {
-          location.reload();
+        onClose: function(resp) {
+          console.log(this);
+          
         },
         onSuccess: function(response) {
-          console.log(response);
+          
         },
         onFailure: function(response) {
+          console.log('////////////////////////');
           console.log(response);
+          console.log(this);
+          
+          this.user.verifypayment({
+            matchId: match.id,
+            payment: match.entryFee
+          }).subscribe((resp) => {
+            // this.navCtrl.push(MainPage);
+            // location.reload();
+            console.log('??????????????????');
+            console.log(resp);
+          }, (err) => {
+            let alert = this.alertCtrl.create({
+              title: 'Payment Failed',
+              subTitle: err.data,
+              buttons: [{
+                text: 'OK',
+                handler: () => {
+                  // location.reload();
+                }
+              }]
+            });
+            alert.present();
+          });
         }
       }
     });
-    Instamojo.open('https://www.instamojo.com/@jaydevthomke/?ref=onb_tasks');
+    Instamojo.open('https://www.instamojo.com/@jaydevthomke?amount=' + match.entryFee + '&&purpose=Match' );
   }
 }

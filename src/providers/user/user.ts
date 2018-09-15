@@ -70,6 +70,36 @@ export class User {
     return seq;
   }
 
+  verifypayment(params: any) {
+    let seq = this.api.post('matches/verifypayment', params).share();
+
+    seq.subscribe((res: any) => {
+      // If the API returned a successful response, mark the user as logged in
+      console.log(res);
+    }, err => {
+      console.error('ERROR', err);
+    });
+
+    return seq;
+  }
+
+  participate(match: any) {
+    let seq = this.api.post('matches/participate', match).share();
+
+    seq.subscribe((res: any) => {
+      // If the API returned a successful response, mark the user as logged in
+      if (res.success) {
+       
+      } else {
+      }
+    }, err => {
+      console.error('ERROR', err);
+    });
+
+    return seq;
+  }
+
+
   /**
    * Log the user out, which forgets the session
    */
