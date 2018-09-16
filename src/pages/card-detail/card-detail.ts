@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular/umd';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { Items, User } from '../../providers';
@@ -37,17 +37,16 @@ export class CardDetailPage {
 
   apply(match) {
     this.user.participate({
-      matchId: match.id,
-      payment: match.entryFee
+      matchId: match.id
     }).subscribe((resp) => {
       // this.navCtrl.push(MainPage);
-      // location.reload();
+      window.open('' + resp, '_system', 'location=yes')
       console.log('??????????????????');
       console.log(resp);
     }, (err) => {
-      let alert = this.alertCtrl.create({
+      let alert = this.alertCtrl.create({ 
         title: 'Payment Failed',
-        subTitle: err.data,
+        subTitle: err.error,
         buttons: [{
           text: 'OK',
           handler: () => {
