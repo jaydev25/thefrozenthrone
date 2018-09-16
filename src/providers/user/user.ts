@@ -41,7 +41,7 @@ export class User {
     seq.subscribe((res: any) => {
       // If the API returned a successful response, mark the user as logged in
       if (res.success) {
-        this._loggedIn(res);
+        return this._loggedIn(res);
       } else {
       }
     }, err => {
@@ -84,7 +84,23 @@ export class User {
   }
 
   participate(match: any) {
-    let seq = this.api.post('matches/participate', match).share();
+    let seq = this.api.post('matches/entry', match).share();
+
+    seq.subscribe((res: any) => {
+      // If the API returned a successful response, mark the user as logged in
+      if (res.success) {
+       
+      } else {
+      }
+    }, err => {
+      console.error('ERROR', err);
+    });
+
+    return seq;
+  }
+
+  forgotPassword(data: any) {
+    let seq = this.api.post('changepasswordemail', data).share();
 
     seq.subscribe((res: any) => {
       // If the API returned a successful response, mark the user as logged in
@@ -106,7 +122,7 @@ export class User {
   logout() {
     this._token = null;
     this.menu.logout();
-    this.storage.remove('_token').then(() => {
+    return this.storage.remove('_token').then(() => {
       this.api.setAPIHeaders();
     });
   }
@@ -118,6 +134,8 @@ export class User {
     console.log(resp);
     this.menu.login();
     this._token = resp.token;
-    this.storage.set('_token', resp.token);
+    return this.storage.set('_token', resp.token).then(() => {
+      this.api.setAPIHeaders();
+    });
   }
 }

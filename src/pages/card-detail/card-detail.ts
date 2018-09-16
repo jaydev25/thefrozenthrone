@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular/umd';
 import { Storage } from '@ionic/storage';
 
 import { Items, User } from '../../providers';
-declare var Instamojo;
 
 @IonicPage()
 @Component({
@@ -37,49 +36,26 @@ export class CardDetailPage {
   }
 
   apply(match) {
-    console.log('>>>>>>>>>>>>>>>>>>>>');
-    console.log(match.entryFee);
-    window.open("http://google.com",'_system', 'location=no');
-    
-    Instamojo.configure({
-      handlers: {
-        onOpen: function() {},
-        onClose: function(resp) {
-          console.log(this);
-          
-        },
-        onSuccess: function(response) {
-          
-        },
-        onFailure: function(response) {
-          console.log('////////////////////////');
-          console.log(response);
-          console.log(this);
-          
-          this.user.verifypayment({
-            matchId: match.id,
-            payment: match.entryFee
-          }).subscribe((resp) => {
-            // this.navCtrl.push(MainPage);
+    this.user.participate({
+      matchId: match.id,
+      payment: match.entryFee
+    }).subscribe((resp) => {
+      // this.navCtrl.push(MainPage);
+      // location.reload();
+      console.log('??????????????????');
+      console.log(resp);
+    }, (err) => {
+      let alert = this.alertCtrl.create({
+        title: 'Payment Failed',
+        subTitle: err.data,
+        buttons: [{
+          text: 'OK',
+          handler: () => {
             // location.reload();
-            console.log('??????????????????');
-            console.log(resp);
-          }, (err) => {
-            let alert = this.alertCtrl.create({
-              title: 'Payment Failed',
-              subTitle: err.data,
-              buttons: [{
-                text: 'OK',
-                handler: () => {
-                  // location.reload();
-                }
-              }]
-            });
-            alert.present();
-          });
-        }
-      }
+          }
+        }]
+      });
+      alert.present();
     });
-    Instamojo.open('https://www.instamojo.com/@jaydevthomke?amount=' + match.entryFee + '&&purpose=Match' );
   }
 }

@@ -10,7 +10,8 @@ export class Items {
 
   query(params?: any) {
     let seq = this.api.get('matches/listing', params);
-
+    console.log('api call');
+    
     seq.subscribe((res: any) => {
       // If the API returned a successful response, mark the user as logged in
       console.log(res);

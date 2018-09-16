@@ -39,6 +39,8 @@ export class Api {
         reqOpts.params = reqOpts.params.set(k, params[k]);
       }
     }
+    console.log('>>>>>>>>>>>>>>', this.token);
+    
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
