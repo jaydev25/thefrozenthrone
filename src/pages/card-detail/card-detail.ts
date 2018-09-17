@@ -12,12 +12,22 @@ import { Items, User } from '../../providers';
 export class CardDetailPage {
   item: any;
   hasData: boolean = false;
-
+  button: string = 'Register';
+  isRegistred: boolean = false;
+  pendingPayment: boolean = false;
   constructor(public navCtrl: NavController, navParams: NavParams, items: Items, public storage: Storage, public user: User,
     public alertCtrl: AlertController) {
     this.item = navParams.get('item');
     if (this.item) {
       this.hasData = true;
+      if(this.item.MatchUsers[0] && !this.item.MatchUsers[0].paymentVerified && !this.item.MatchUsers[0].paymentId) {
+        this.button = 'Make Payment';
+        this.pendingPayment = true;
+      }
+      if (this.item.MatchUsers[0] && this.item.MatchUsers[0].paymentVerified && this.item.MatchUsers[0].paymentId) {
+        this.button = 'Already Regestered';
+        this.isRegistred = true;
+      }
     }
   }
 

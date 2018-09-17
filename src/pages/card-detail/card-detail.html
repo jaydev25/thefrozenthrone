@@ -22,8 +22,10 @@
     <p>You can use Game Points for participating in other matches or redeem them as PayTM cash.</p>
     <p>Minimmum redeem points: 100</p>
     <p><strong>Note: Please Provide valid PayTM number to get rewards.</strong></p>
+    
     <button ion-button float-right (click)="apply(item)">
-      Participate
+      {{button}}
     </button>
+    <p *ngIf="pendingPayment"><strong>Please make the payment to complete your regestration before the deadline.</strong></p>
   </div>
 </ion-content>

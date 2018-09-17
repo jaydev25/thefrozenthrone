@@ -7,8 +7,8 @@ import { Storage } from '@ionic/storage';
  */
 @Injectable()
 export class Api {
-  url: string = 'https://pubg-mobile-api.herokuapp.com';
-  // url: string = 'http://localhost:5000';
+  // url: string = 'https://pubg-mobile-api.herokuapp.com';
+  url: string = 'http://localhost:5000';
   token: string;
   constructor(public http: HttpClient, public storage: Storage) {
     this.setAPIHeaders();
@@ -39,8 +39,6 @@ export class Api {
         reqOpts.params = reqOpts.params.set(k, params[k]);
       }
     }
-    console.log('>>>>>>>>>>>>>>', this.token);
-    
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',

@@ -16,8 +16,10 @@ export class CardsPage {
   constructor(public navCtrl: NavController, public storage: Storage, public loadingCtrl: LoadingController,
     public modalCtrl: ModalController, public items: Items) {
   }
+  
 
   ngOnInit() {
+    console.log('////////////////////////////////////');
     this.items.query().subscribe((resp) => {
       this.isDataAvailable = true;
       this.cardItems = resp;
