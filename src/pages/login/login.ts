@@ -50,7 +50,7 @@ export class LoginPage {
       // this.navCtrl.push(MainPage);
       // Unable to log in
       let toast = this.toastCtrl.create({
-        message: err && err.error ? err.error.toUpperCase() : 'Somthing went wrong please try again',
+        message: err && err.error ? err.error.toString().toUpperCase() : 'Somthing went wrong please try again',
         duration: 3000,
         position: 'top'
       });
@@ -59,8 +59,6 @@ export class LoginPage {
   }
 
   forgotPassword() {
-    console.log('///////////////////');
-    
     this.navCtrl.push('ForgotPasswordPage');
   }
 }

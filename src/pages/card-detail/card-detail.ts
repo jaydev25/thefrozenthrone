@@ -23,8 +23,7 @@ export class CardDetailPage {
       if(this.item.MatchUsers[0] && !this.item.MatchUsers[0].paymentVerified && !this.item.MatchUsers[0].paymentId) {
         this.button = 'Make Payment';
         this.pendingPayment = true;
-      }
-      if (this.item.MatchUsers[0] && this.item.MatchUsers[0].paymentVerified && this.item.MatchUsers[0].paymentId) {
+      } else if (this.item.MatchUsers[0] && this.item.MatchUsers[0].paymentVerified && this.item.MatchUsers[0].paymentId) {
         this.button = 'Already Regestered';
         this.isRegistred = true;
       }
