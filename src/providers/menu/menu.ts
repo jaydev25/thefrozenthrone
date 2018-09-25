@@ -48,7 +48,7 @@ export class Menu {
             if (value) {
                 this.pages[0] = { title: 'Matches', component: 'CardsPage' };
                 this.pages[1] = { title: 'Logout', component: 'WelcomePage' };
-                this.pages[2] = { title: 'Master', component: 'ListMasterPage' };
+                this.pages[2] = { title: 'My Profile', component: 'ListMasterPage' };
                 this.rootPage = 'CardsPage';
             } else {
               this.rootPage = FirstRunPage;
@@ -65,6 +65,6 @@ export class Menu {
     login() {
         this.pages[0] = { title: 'Matches', component: 'CardsPage' };
         this.pages[1] = { title: 'Logout', component: 'WelcomePage' };
-        this.pages[2] = { title: 'Master', component: 'ListMasterPage' };
+        this.pages[2] = { title: 'My Profile', component: 'ListMasterPage' };
     }
 }

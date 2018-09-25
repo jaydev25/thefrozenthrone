@@ -14,13 +14,15 @@ export class SignupPage {
   // The account fields for the login form.
   // If you're using the username field with or without email, make
   // sure to add it to the type
-  account: { firstName: string, lastName: string, email: string, password: string } = {
+  account: { firstName: string, lastName: string, email: string, password: string, contact: string, payTM: string } = {
     firstName: '',
     lastName: '',
     email: '',
     password: '',
+    contact: '',
+    payTM: ''
   };
-
+  confirmPassword: String;
   // Our translated text strings
   private signupErrorString: string;
 
@@ -64,7 +66,7 @@ export class SignupPage {
       loading.dismiss();
       // Unable to sign up
       let toast = this.toastCtrl.create({
-        message: err && err.error ? err.error.toUpperCase() : 'Somthing went wrong please try again',
+        message: err && err.error ? err.error.toString().toUpperCase() : 'Somthing went wrong please try again',
         duration: 3000,
         position: 'top'
       });
