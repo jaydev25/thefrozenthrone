@@ -1,0 +1,23 @@
+<ion-header>
+
+  <ion-navbar primary>
+    <button ion-button menuToggle left>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title float-left class="page-title">Matches</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content *ngIf="!isDataAvailable">
+  <ion-card-content>
+    <h3 primary float-left>No Matches Available</h3>
+  </ion-card-content>
+</ion-content>
+<ion-content>
+  <ion-grid ng-if="isDataAvailable">
+    <ion-row>
+     
+    </ion-row>
+  </ion-grid>
+</ion-content>

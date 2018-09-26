@@ -99,6 +99,22 @@ export class User {
     return seq;
   }
 
+  profile() {
+    let seq = this.api.get('player/profile').share();
+
+    seq.subscribe((res: any) => {
+      // If the API returned a successful response, mark the user as logged in
+      if (res.success) {
+       
+      } else {
+      }
+    }, err => {
+      console.error('ERROR', err);
+    });
+
+    return seq;
+  }
+
   forgotPassword(data: any) {
     let seq = this.api.post('changepasswordemail', data).share();
 
