@@ -49,7 +49,11 @@ export class CardDetailPage {
       matchId: match.id
     }).subscribe((resp) => {
       // this.navCtrl.push(MainPage);
-      window.open('' + resp, '_system', 'location=yes')
+      // window.open('' + resp, '_system', 'location=yes')
+      this.user.paytm(resp).subscribe((pay) => {
+        console.log(pay);
+        
+      })
       console.log('??????????????????');
       console.log(resp);
     }, (err) => {

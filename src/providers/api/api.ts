@@ -59,6 +59,16 @@ export class Api {
     return this.http.post(this.url + '/' + endpoint, body, httpOptions);
   }
 
+  paytmpost(endpoint: string, body: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': this.token
+      })
+    };
+    return this.http.post(endpoint, body, httpOptions);
+  }
+
   put(endpoint: string, body: any) {
     const httpOptions = {
       headers: new HttpHeaders({

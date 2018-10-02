@@ -86,15 +86,31 @@ export class User {
   participate(match: any) {
     let seq = this.api.post('paytm/matches/entry', match).share();
 
-    seq.subscribe((res: any) => {
-      // If the API returned a successful response, mark the user as logged in
-      if (res.success) {
+    // seq.subscribe((res: any) => {
+    //   // If the API returned a successful response, mark the user as logged in
+    //   if (res.success) {
        
-      } else {
-      }
-    }, err => {
-      console.error('ERROR', err);
-    });
+    //   } else {
+    //   }
+    // }, err => {
+    //   console.error('ERROR', err);
+    // });
+
+    return seq;
+  }
+
+  paytm(params: any) {
+    let seq = this.api.paytmpost('https://pguat.paytm.com/oltp-web/processTransaction', params).share();
+
+    // seq.subscribe((res: any) => {
+    //   // If the API returned a successful response, mark the user as logged in
+    //   if (res.success) {
+       
+    //   } else {
+    //   }
+    // }, err => {
+    //   console.error('ERROR', err);
+    // });
 
     return seq;
   }
