@@ -84,7 +84,7 @@ export class User {
   }
 
   participate(match: any) {
-    let seq = this.api.post('matches/entry', match).share();
+    let seq = this.api.post('paytm/matches/entry', match).share();
 
     seq.subscribe((res: any) => {
       // If the API returned a successful response, mark the user as logged in
